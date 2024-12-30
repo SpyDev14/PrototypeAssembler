@@ -13,12 +13,12 @@ namespace PrototypeAssembler.Shared.Assembly.FilePreparator
         public PreparedFile PrepareFile(DefaultFile file)
         {
             Func<string, string> commentedText = (text) => $"\n#{text}";
-            const int dividorLength = 20;
+            const int dividorLength = 38;
             const char dividorChar = '=';
 
             Func<string, string> part = (suffix) =>
                 commentedText(new string(dividorChar, dividorLength)) +
-                commentedText($" <-- [{suffix.ToUpper()}] {(_data.AdAuthor ? $" Author: {_data.Author}" : null)}") +
+                commentedText($" <-- [{suffix.ToUpper()}] {(_data.AdAuthor ? $" Author: {_data.Author} [{suffix.ToUpper()}]" : null)}") +
                 commentedText($"{new string(dividorChar, dividorLength)} \n");
 
             return new(file)
