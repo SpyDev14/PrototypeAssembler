@@ -17,7 +17,7 @@ namespace PrototypeAssembler.Shared.Saver
                 {
                     case OnFileAlreadyExistOperation.Overwrite:
                         Console.Write("Overwrite file? [Y]> ");
-                        var answer = Console.ReadLine();
+                        var answer = Console.ReadLine()!;
 
                         if (answer.ToLower() != "y")
                         {
@@ -29,12 +29,12 @@ namespace PrototypeAssembler.Shared.Saver
                         break;
 
                     case OnFileAlreadyExistOperation.CreateWithIndex:
-                        fullPath = _data.OutputPath + $"\\{file.Name}({index}).yml";
+                        fullPath = _data.OutputPath + $"\\{file.Name} ({index}).yml";
                         index++;
                         break;
 
                     case OnFileAlreadyExistOperation.ThrowEx:
-                        throw new FileAlreadyExistsEsception();
+                        throw new FileAlreadyExistsException();
                 }
             }
 
