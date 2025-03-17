@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrototypeAssembler.Shared.Saver
+namespace Content.Core.Saver
 {
-    internal class FileAlreadyExistsEsception : Exception
+    internal class FileAlreadyExistsException : Exception
     {
-        public FileAlreadyExistsEsception() : base() {}
+        public FileAlreadyExistsException() : base() {}
 
-        public FileAlreadyExistsEsception(string? message) : base(message) { }
+        public FileAlreadyExistsException(string? message) : base(message) { }
 
-        public FileAlreadyExistsEsception(string? message, Exception? innerException) : base(message, innerException) { }
+        public FileAlreadyExistsException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 }
