@@ -6,25 +6,33 @@ using System.Threading.Tasks;
 
 namespace Content.Core.Assembly.FilePreparator
 {
-    internal class DefaultFilePreparator(AssemblyData data) : IFilePreparator
+    internal class BaseFilePreparator(AssemblyData data) : IFilePreparator
     {
+
+        private readonly AssemblyData _data = data;
+
         public PreparedFile PrepareFile(BaseFile file)
         {
             Func<string, string> commentedText = (text) => $"\n#{text}";
             const int dividorLength = 38;
             const char dividorChar = '=';
             string dividor = new string(dividorChar, dividorLength);
-            string? author = data.Author;
+
+            bool severalInfo = (file.Path != null) || (_data.Author != null);
 
             Func<string, string> part = (label) =>
                 commentedText(dividor) +
-                commentedText($" <-- [{label.ToUpper()}] {(author != null ? $" Author: {author} [{label.ToUpper()}]" : null)}") +
+                commentedText($"[{label.ToUpper()}]") +
+
+                $"{(file.Path != null? commentedText(file.Path.Substring(0, _data.WorkFolderPath.Length)) : null)}" +
+                $"{(_data.Author != null ? commentedText($" Author: {_data.Author}") : null)}" +
+                $"{(severalInfo? commentedText($"[{label.ToUpper()}]") : null)}" +
+
                 commentedText($"{dividor} \n");
 
-            return new(file)
+            return new PreparedFile(file)
             {
                 Head = part("start"),
-
                 Footer = part("end")
             };
         }

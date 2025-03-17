@@ -35,7 +35,7 @@ namespace Content.Core
             };
             SaveData saveData = new(assembledFileSavePath, assembledFileName);
 
-            IAssembler assembler = new BaseAssembler(assemblyData, new DefaultFilePreparator(assemblyData));
+            IAssembler assembler = new BaseAssembler(assemblyData, new BaseFilePreparator(assemblyData));
 
             AssembledFile assembledFile = assembler.AssembleFiles();
 
