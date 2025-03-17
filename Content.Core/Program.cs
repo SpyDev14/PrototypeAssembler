@@ -8,19 +8,34 @@ namespace Content.Core
     {
         static void Main(string[] args)
         {
-            string folderPath = "C:\\Users\\Admin\\Desktop\\debug folder";
-            string outputPath = "C:\\Users\\Admin\\Desktop\\debug out folder";
-            string author = "Spy";
-            string assembledFileName = "Test";
+            /*
+                arg[0] - workFolderPath
+                arg[1] - assembledFileSavePath
+                arg[2] - assembledFileName
+                arg[3] - author (optional)
+            */
 
-            AssemblyData assemblyData = new(folderPath, assembledFileName)
+            string workFolderPath, assembledFileSavePath, assembledFileName;
+            string? author = null;
+
+            if (args.Length >= 3)
             {
-                Author = author,
-                AdAuthor = true
-            };
-            SaveData saveData = new(outputPath);
+                workFolderPath = args[0];
+                assembledFileSavePath = args[1];
+                assembledFileName = args[2];                
 
-            IAssembler assembler = new DefaultAssembler(assemblyData, new DefaultFilePreparator(assemblyData));
+                if (args.Length >= 4)
+                    author = args[3];
+            }
+            else throw new ArgumentNullException("at least 2 arguments are needed");
+
+            AssemblyData assemblyData = new(workFolderPath)
+            {
+                Author = author
+            };
+            SaveData saveData = new(assembledFileSavePath, assembledFileName);
+
+            IAssembler assembler = new BaseAssembler(assemblyData, new DefaultFilePreparator(assemblyData));
 
             AssembledFile assembledFile = assembler.AssembleFiles();
 

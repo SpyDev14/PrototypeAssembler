@@ -8,33 +8,24 @@ namespace Content.Core.Saver
 
         public void Save(DefaultFile file)
         {
-            string fullPath = _data.OutputPath + $"\\{file.Name}.yml";
+            string fullPath = _data.OutputPath + $"\\{_data.AssembledFileName}.yml";
 
             int index = 1;
             while (File.Exists(fullPath))
             {
-                switch (_data.FileAlreadyExistOperation)
+                switch (_data.OnFileAlreadyExistOperation)
                 {
-                    case OnFileAlreadyExistOperation.Overwrite:
-                        Console.Write("Overwrite file? [Y]> ");
-                        var answer = Console.ReadLine()!;
-
-                        if (answer.ToLower() != "y")
-                        {
-                            Console.WriteLine("Terminating...");
-                            Environment.Exit(0);
-                        }
-
+                    case OnFileAlreadyExist.Overwrite:
                         File.Delete(fullPath);
                         break;
 
-                    case OnFileAlreadyExistOperation.CreateWithIndex:
-                        fullPath = _data.OutputPath + $"\\{file.Name} ({index}).yml";
+                    case OnFileAlreadyExist.CreateWithIndex:
+                        fullPath = _data.OutputPath + $"\\{_data.AssembledFileName} ({index}).yml";
                         index++;
                         break;
 
-                    case OnFileAlreadyExistOperation.ThrowEx:
-                        throw new FileAlreadyExistsException();
+                    case OnFileAlreadyExist.ThrowException:
+                        throw new FileAlreadyExistsException($"File {_data.AssembledFileName}.yml in {_data.OutputPath} already exist");
                 }
             }
 

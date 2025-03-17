@@ -3,14 +3,14 @@ using System.Text;
 
 namespace Content.Core.Assembly
 {
-    internal class DefaultAssembler : IAssembler
+    internal class BaseAssembler : IAssembler
     {
-        public DefaultAssembler(AssemblyData data, IFilePreparator filePreparator)
+        public BaseAssembler(AssemblyData data, IFilePreparator filePreparator)
         {
             _data = data;
             _filePreparator = filePreparator;
 
-            DirectoryInfo dirrInfo = new(data.WorkPath);
+            DirectoryInfo dirrInfo = new(data.WorkFolderPath);
             _filesForAssembling = dirrInfo.GetFiles()
                 .Where(
                     file => file.Name.EndsWith(".yml", StringComparison.OrdinalIgnoreCase) ||
@@ -30,23 +30,24 @@ namespace Content.Core.Assembly
 
             foreach (FileInfo file in _filesForAssembling)
             {
-                string content;
+                string fileContent;
 
                 using (StreamReader reader = file.OpenText())
                 {
-                    content = reader.ReadToEnd();
+                    fileContent = reader.ReadToEnd();
                 }
 
-                preparedFiles.Add(_filePreparator.PrepareFile(new DefaultFile(content, file.Name)));
+                preparedFiles.Add(_filePreparator.PrepareFile(new DefaultFile(fileContent, file.Name)));
             }
 
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
 
+            // combining files
             foreach (PreparedFile preparedFile in preparedFiles)
                 stringBuilder.AppendLine(preparedFile.ToString());
 
-
-            return new(stringBuilder.ToString(), _data.OutputFileName);
+            return new AssembledFile(stringBuilder.ToString());
         }
     }
 }
+

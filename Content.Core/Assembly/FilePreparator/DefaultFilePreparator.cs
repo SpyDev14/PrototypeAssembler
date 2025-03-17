@@ -8,18 +8,18 @@ namespace Content.Core.Assembly.FilePreparator
 {
     internal class DefaultFilePreparator(AssemblyData data) : IFilePreparator
     {
-        private readonly AssemblyData _data = data;
-
         public PreparedFile PrepareFile(DefaultFile file)
         {
             Func<string, string> commentedText = (text) => $"\n#{text}";
             const int dividorLength = 38;
             const char dividorChar = '=';
+            string dividor = new string(dividorChar, dividorLength);
+            string? author = data.Author;
 
-            Func<string, string> part = (suffix) =>
-                commentedText(new string(dividorChar, dividorLength)) +
-                commentedText($" <-- [{suffix.ToUpper()}] {(_data.AdAuthor ? $" Author: {_data.Author} [{suffix.ToUpper()}]" : null)}") +
-                commentedText($"{new string(dividorChar, dividorLength)} \n");
+            Func<string, string> part = (label) =>
+                commentedText(dividor) +
+                commentedText($" <-- [{label.ToUpper()}] {(author != null ? $" Author: {author} [{label.ToUpper()}]" : null)}") +
+                commentedText($"{dividor} \n");
 
             return new(file)
             {

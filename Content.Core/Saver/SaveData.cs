@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace Content.Core.Saver
 {
-    internal class SaveData(string outPath)
+    internal class SaveData(string outPath, string assembledFileName)
     {
         public string OutputPath { get; set; } = outPath;
 
-        public OnFileAlreadyExistOperation FileAlreadyExistOperation { get; set; } = OnFileAlreadyExistOperation.CreateWithIndex;
+        public string AssembledFileName {  get; set; } = assembledFileName;
+
+        public OnFileAlreadyExist OnFileAlreadyExistOperation { get; set; }
+            = OnFileAlreadyExist.CreateWithIndex;
     }
 
-    public enum OnFileAlreadyExistOperation
+    public enum OnFileAlreadyExist
     {
         Overwrite,
         CreateWithIndex,
-        ThrowEx
+        ThrowException
     }
 }
