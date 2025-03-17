@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Content.Core.Assembly.FilePreparator
 {
-    internal class PreparedFile : DefaultFile
+    internal class PreparedFile : BaseFile
     {
         public PreparedFile(string content) : base(content) { }
 
         public PreparedFile(string content, string name) : base(content, name) { }
 
-        public PreparedFile(DefaultFile defaultFile) : base(defaultFile.Content)
+        public PreparedFile(BaseFile defaultFile) : base(defaultFile.Content)
         {
             Name = defaultFile.Name;
         }

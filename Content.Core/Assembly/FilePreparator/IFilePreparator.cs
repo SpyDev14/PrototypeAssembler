@@ -8,6 +8,6 @@ namespace Content.Core.Assembly.FilePreparator
 {
     internal interface IFilePreparator
     {
-        public PreparedFile PrepareFile(DefaultFile file);
+        public PreparedFile PrepareFile(BaseFile file);
     }
 }

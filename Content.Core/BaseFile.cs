@@ -1,10 +1,10 @@
 ﻿namespace Content.Core
 {
-    internal class DefaultFile
+    internal class BaseFile
     {
-        public DefaultFile(string content) => Content = content;
+        public BaseFile(string content) => Content = content;
 
-        public DefaultFile(string content, string name)
+        public BaseFile(string content, string name)
         {
             Name = name;
 

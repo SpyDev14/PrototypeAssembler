@@ -8,7 +8,7 @@ namespace Content.Core.Assembly.FilePreparator
 {
     internal class DefaultFilePreparator(AssemblyData data) : IFilePreparator
     {
-        public PreparedFile PrepareFile(DefaultFile file)
+        public PreparedFile PrepareFile(BaseFile file)
         {
             Func<string, string> commentedText = (text) => $"\n#{text}";
             const int dividorLength = 38;
