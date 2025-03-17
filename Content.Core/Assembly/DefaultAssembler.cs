@@ -37,7 +37,7 @@ namespace Content.Core.Assembly
                     fileContent = reader.ReadToEnd();
                 }
 
-                preparedFiles.Add(_filePreparator.PrepareFile(new BaseFile(fileContent, file.Name)));
+                preparedFiles.Add(_filePreparator.PrepareFile(new BaseFile(fileContent)));
             }
 
             StringBuilder stringBuilder = new();

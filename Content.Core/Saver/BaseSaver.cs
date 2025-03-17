@@ -33,7 +33,7 @@ namespace Content.Core.Saver
             {
                 using (StreamWriter writer = new StreamWriter(fileStream))
                 {
-                    writer.Write(file.Content);
+                    writer.Write(file.FileContent);
                 }
             }
         }

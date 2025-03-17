@@ -1,6 +1,4 @@
-﻿using Content.Core.Assembly;
-
-namespace Content.Core.Saver
+﻿namespace Content.Core.Saver
 {
     internal interface IFileSaver
     {
