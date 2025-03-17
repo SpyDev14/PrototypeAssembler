@@ -6,7 +6,7 @@ namespace Content.Core.Saver
     {
         private readonly SaveData _data = data;
 
-        public void Save(DefaultFile file)
+        public void Save(BaseFile file)
         {
             string fullPath = _data.OutputPath + $"\\{_data.AssembledFileName}.yml";
 
@@ -38,25 +38,20 @@ namespace Content.Core.Saver
             }
         }
 
-        public Exception? TrySave(DefaultFile file)
+        public bool TrySave(BaseFile file, out Exception? exception)
         {
             try
             {
                 Save(file);
-
-                return null;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return ex;
+                exception = e;
+                return false;
             }
-        }
 
-        public bool TrySave(DefaultFile file, out Exception? exception)
-        {
-            exception = TrySave(file);
-
-            return exception == null;
+            exception = null;
+            return true;
         }
     }
 }
