@@ -5,7 +5,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrototypeAssembler.Shared.Assembly.FilePreparator
+namespace Content.Core.Assembly.FilePreparator
 {
     internal class PreparedFile : DefaultFile
     {

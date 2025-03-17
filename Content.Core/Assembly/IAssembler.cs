@@ -1,4 +1,4 @@
-﻿namespace PrototypeAssembler.Shared.Assembly
+﻿namespace Content.Core.Assembly
 {
     internal interface IAssembler
     {

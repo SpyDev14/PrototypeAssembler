@@ -1,6 +1,6 @@
-﻿using PrototypeAssembler.Shared.Assembly;
+﻿using Content.Core.Assembly;
 
-namespace PrototypeAssembler.Shared.Saver
+namespace Content.Core.Saver
 {
     internal interface IFileSaver
     {

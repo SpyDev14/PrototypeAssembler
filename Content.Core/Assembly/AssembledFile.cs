@@ -1,4 +1,4 @@
-﻿namespace PrototypeAssembler.Shared.Assembly
+﻿namespace Content.Core.Assembly
 {
     internal class AssembledFile(string content, string name) : DefaultFile(content, name) { }
 }

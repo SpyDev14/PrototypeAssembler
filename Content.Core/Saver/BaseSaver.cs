@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace PrototypeAssembler.Shared.Saver
+namespace Content.Core.Saver
 {
     internal class BaseSaver(SaveData data) : IFileSaver
     {

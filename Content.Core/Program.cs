@@ -1,8 +1,8 @@
-﻿using PrototypeAssembler.Shared.Assembly;
-using PrototypeAssembler.Shared.Assembly.FilePreparator;
-using PrototypeAssembler.Shared.Saver;
+﻿using Content.Core.Assembly;
+using Content.Core.Assembly.FilePreparator;
+using Content.Core.Saver;
 
-namespace PrototypeAssembler.Shared
+namespace Content.Core
 {
     public class Program
     {

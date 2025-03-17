@@ -1,7 +1,7 @@
-﻿using PrototypeAssembler.Shared.Assembly.FilePreparator;
+﻿using Content.Core.Assembly.FilePreparator;
 using System.Text;
 
-namespace PrototypeAssembler.Shared.Assembly
+namespace Content.Core.Assembly
 {
     internal class DefaultAssembler : IAssembler
     {

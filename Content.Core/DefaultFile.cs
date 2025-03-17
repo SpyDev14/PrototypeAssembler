@@ -1,4 +1,4 @@
-﻿namespace PrototypeAssembler.Shared
+﻿namespace Content.Core
 {
     internal class DefaultFile
     {
