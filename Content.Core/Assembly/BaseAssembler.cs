@@ -1,46 +1,33 @@
-﻿using Content.Core.Assembly.FilePreparator;
+﻿using Content.Core.Assembly.FileCollector;
+using Content.Core.Assembly.FilePreparator;
 using System.Text;
 
 namespace Content.Core.Assembly
 {
     internal class BaseAssembler : IAssembler
     {
-        public BaseAssembler(AssemblyData data, IFilePreparator filePreparator)
+        public BaseAssembler(AssemblyData data, IFilePreparator filePreparator, IFileCollector fileCollector)
         {
             _data = data;
             _filePreparator = filePreparator;
-
-            DirectoryInfo dirrInfo = new(data.WorkFolderPath);
-            _filesForAssembling = dirrInfo.GetFiles()
-                .Where(
-                    file => file.Name.EndsWith(".yml", StringComparison.OrdinalIgnoreCase) ||
-                    file.Name.EndsWith(".yaml", StringComparison.OrdinalIgnoreCase)
-                ).ToList();
+            _fileCollector = fileCollector;
         }
 
         private readonly AssemblyData _data;
         private IFilePreparator _filePreparator;
-
-        private List<FileInfo> _filesForAssembling;
-
+        private IFileCollector _fileCollector;
 
         public AssembledFile AssembleFiles()
         {
+            BaseFile[] _filesForAssembling = _fileCollector.CollectFiles(_data.WorkFolderPath);
             List<PreparedFile> preparedFiles = [];
 
-            foreach (FileInfo file in _filesForAssembling)
-            {
-                string fileContent;
-
-                using (StreamReader reader = file.OpenText())
-                {
-                    fileContent = reader.ReadToEnd();
-                }
-
-                preparedFiles.Add(_filePreparator.PrepareFile(new BaseFile(fileContent)));
-            }
-
             StringBuilder stringBuilder = new();
+
+            foreach (BaseFile fileForAssembling in _filesForAssembling)
+            {
+                preparedFiles.Add(_filePreparator.PrepareFile(fileForAssembling));
+            }
 
             // combining files
             foreach (PreparedFile preparedFile in preparedFiles)

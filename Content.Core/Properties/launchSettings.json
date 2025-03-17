@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Content.Core": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\Admin\\Desktop\\debug_folder\r\nC:\\Users\\Admin\\Desktop\\debug_out_folder\r\nTest_17.03.25\r\nSpyDev14\r\n0"
+    }
+  }
+}

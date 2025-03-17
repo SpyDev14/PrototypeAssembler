@@ -7,7 +7,6 @@
         public PreparedFile(BaseFile file) : this(file.FileContent, file.Path) {}
 
         public string? Head { get; set; }
-
         public string? Footer { get; set; }
 
         public override string ToString()

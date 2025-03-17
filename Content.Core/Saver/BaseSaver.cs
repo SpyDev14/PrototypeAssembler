@@ -1,4 +1,5 @@
 ﻿namespace Content.Core.Saver;
+
 internal class BaseSaver(SaveData data) : IFileSaver
 {
     private readonly SaveData _data = data;
