@@ -1,7 +1,6 @@
-﻿namespace Content.Core.Assembly.FileCollector
+﻿namespace Content.Core.Assembly.FileCollector;
+
+internal interface IFileCollector
 {
-    internal interface IFileCollector
-    {
-        public BaseFile[] CollectFiles(string path);
-    }
+    public BaseFile[] CollectFiles(string path);
 }

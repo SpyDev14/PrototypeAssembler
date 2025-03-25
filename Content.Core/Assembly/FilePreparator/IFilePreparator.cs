@@ -1,7 +1,5 @@
-﻿namespace Content.Core.Assembly.FilePreparator
+﻿namespace Content.Core.Assembly.FilePreparator;
+internal interface IFilePreparator
 {
-    internal interface IFilePreparator
-    {
-        public PreparedFile PrepareFile(BaseFile file);
-    }
+    public PreparedFile PrepareFile(BaseFile file);
 }
