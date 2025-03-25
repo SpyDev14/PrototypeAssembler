@@ -9,4 +9,6 @@ internal class BaseFile
     public string FileContent { get; protected set; }
     public string? Path {get; protected set; }
     public string? Name { get; set; }
+
+    public FileInfo? FileInfo { get; set; }
 }

@@ -18,12 +18,12 @@ internal class BaseAssembler : IAssembler
 
     public AssembledFile AssembleFiles()
     {
-        BaseFile[] _filesForAssembling = _fileCollector.CollectFiles(_data.WorkFolderPath);
+        BaseFile[] filesForAssembling = _fileCollector.CollectFiles(_data.WorkFolderPath);
         List<PreparedFile> preparedFiles = [];
 
         StringBuilder stringBuilder = new();
 
-        foreach (BaseFile fileForAssembling in _filesForAssembling)
+        foreach (BaseFile fileForAssembling in filesForAssembling)
         {
             preparedFiles.Add(_filePreparator.PrepareFile(fileForAssembling));
         }

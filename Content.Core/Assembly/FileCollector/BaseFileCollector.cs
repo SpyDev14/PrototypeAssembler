@@ -1,34 +1,39 @@
-﻿namespace Content.Core.Assembly.FileCollector;
+﻿using System.IO;
+
+namespace Content.Core.Assembly.FileCollector;
 internal class BaseFileCollector : IFileCollector
 {
-    public BaseFile[] CollectFiles(string path)
+    public BaseFile[] CollectFiles(string workDirrectoryPath)
     {
-        List<FileInfo> _fileInfos = [];
-        List<BaseFile> _files = [];
+        List<FileInfo> files     = [];
+        List<BaseFile> baseFiles = [];
 
-        DirectoryInfo dirrInfo = new(path);
-        DirectoryInfo[] directories = { dirrInfo };
-
-        foreach (DirectoryInfo dirr in directories)
+        Console.WriteLine("Files for assembling:");
+        foreach (var filePath in Directory.EnumerateFiles(workDirrectoryPath, "*.yml", SearchOption.AllDirectories))
         {
-            _fileInfos.AddRange(dirr.GetFiles()
-                .Where(
-                    file => file.Name.EndsWith(".yml", StringComparison.OrdinalIgnoreCase) ||
-                    file.Name.EndsWith(".yaml", StringComparison.OrdinalIgnoreCase)
-                ).ToList());
+            Console.WriteLine($" » {filePath}");
+            files.Add(new FileInfo(filePath));
         }
 
-        foreach (FileInfo file in _fileInfos)
+        foreach (var file in files)
         {
-            string fileContent;
+            string fileContent = default!;
             using (StreamReader reader = file.OpenText())
             {
                 fileContent = reader.ReadToEnd();
             }
 
-            _files.Add(new(fileContent, file.FullName, file.Name));
+            baseFiles.Add (
+                new (
+                    fileContent,
+                    $"{file.FullName}\\{file.Name}",
+                    file.Name
+                ) {
+                    FileInfo = file
+                }
+            );
         }
 
-        return _files.ToArray();
+        return baseFiles.ToArray();
     }
 }

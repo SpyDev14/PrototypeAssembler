@@ -55,6 +55,8 @@ public class Program
         IFileSaver saver = new BaseSaver(saveData);
         saver.Save(assembledFile);
 
-        Console.WriteLine("Успешно!");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("\nУспешно!");
+        Console.ResetColor();
     }
 }

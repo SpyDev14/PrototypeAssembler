@@ -7,29 +7,24 @@ internal class BaseFilePreparator(AssemblyData data) : IFilePreparator
 
     public PreparedFile PrepareFile(BaseFile file)
     {
-        Func<string, string> commentedText = (text) => $"\n#{text}";
         const int dividorLength = 80;
         const char dividorChar = '=';
-        string dividor = new string(dividorChar, dividorLength);
         const string prefix = "  ├─ ";
 
+        Func<string, string> commentText = (text) => $"\n#{text}";
+        Func<string, string> getDividor = (label) => new string(dividorChar, dividorLength - (label.Length+3));
+        
         bool severalInfo =
             (file.Path    != null) ||
-            (_data.Author != null) ||
-            (file.Name    != null);
+            (file.Name    != null) ||
+            (_data.Author != null) ;
 
         Func<string, string> part = (label) =>
-            commentedText(dividor) +
-            commentedText($"[{label.ToUpper()}]") +
-
-            $"{(file.Path    != null ? commentedText($"{prefix}Path:   {file.Path.Substring(0, _data.WorkFolderPath.Length)}") : null)}" +
-            $"{(file.Name    != null ? commentedText($"{prefix}Name:   {file.Name}")    : null)}" +
-            $"{(_data.Author != null ? commentedText($"{prefix}Author: {_data.Author}") : null)}" +
-                                        commentedText($"{prefix}Time:   {DateTime.Now}")           +
-
-            $"{(severalInfo? commentedText($"[{label.ToUpper()}]") : null)}" +
-
-            commentedText($"{dividor} \n");
+            commentText($"[{label.ToUpper()}] {getDividor(label)}") +
+                $"{(file.Path    != null ? commentText($"{prefix}Path:   {file.Path.Substring(0, _data.WorkFolderPath.Length)}") : null)}" +
+                $"{(file.Name    != null ? commentText($"{prefix}Name:   {file.Name}")    : null)}" +
+                $"{(_data.Author != null ? commentText($"{prefix}Author: {_data.Author}") : null)}" +
+            $"{(severalInfo ? commentText($"[{label.ToUpper()}] {getDividor(label)}") : null)}";
 
         return new PreparedFile(file)
         {
