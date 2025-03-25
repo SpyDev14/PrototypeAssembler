@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Content.Core.Saver
+﻿namespace Content.Core.Saver
 {
     internal class SaveData(string outPath, string assembledFileName)
     {
