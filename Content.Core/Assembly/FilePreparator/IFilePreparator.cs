@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Content.Core.Assembly.FilePreparator
+﻿namespace Content.Core.Assembly.FilePreparator;
+internal interface IFilePreparator
 {
-    internal interface IFilePreparator
-    {
-        public PreparedFile PrepareFile(DefaultFile file);
-    }
+    public PreparedFile PrepareFile(BaseFile file);
 }

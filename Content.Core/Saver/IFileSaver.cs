@@ -1,13 +1,8 @@
-﻿using Content.Core.Assembly;
+﻿namespace Content.Core.Saver;
 
-namespace Content.Core.Saver
+internal interface IFileSaver
 {
-    internal interface IFileSaver
-    {
-        public void Save(DefaultFile file);
+    public void Save(BaseFile file);
 
-        public Exception? TrySave(DefaultFile file);
-
-        public bool TrySave(DefaultFile file, out Exception? exception);
-    }
+    public bool TrySave(BaseFile file, out Exception? exception);
 }

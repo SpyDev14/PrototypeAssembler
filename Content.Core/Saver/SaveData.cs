@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Content.Core.Saver;
 
-namespace Content.Core.Saver
+internal class SaveData(string outPath, string assembledFileName)
 {
-    internal class SaveData(string outPath)
-    {
-        public string OutputPath { get; set; } = outPath;
+    public string OutputPath { get; set; } = outPath;
 
-        public OnFileAlreadyExistOperation FileAlreadyExistOperation { get; set; } = OnFileAlreadyExistOperation.CreateWithIndex;
-    }
+    public string AssembledFileName {  get; set; } = assembledFileName;
 
-    public enum OnFileAlreadyExistOperation
-    {
-        Overwrite,
-        CreateWithIndex,
-        ThrowEx
-    }
+    public OnFileAlreadyExist OnFileAlreadyExistOperation { get; set; }
+        = OnFileAlreadyExist.CreateWithIndex;
+}
+
+public enum OnFileAlreadyExist
+{
+    Overwrite,
+    CreateWithIndex,
+    ThrowException
 }

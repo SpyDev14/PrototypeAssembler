@@ -1,13 +1,7 @@
-﻿namespace Content.Core.Assembly
+﻿namespace Content.Core.Assembly;
+internal class AssemblyData(string workFolderPath)
 {
-    internal class AssemblyData(string workPath, string outputFileName)
-    {
+    public string WorkFolderPath { get; private set; } = workFolderPath;
 
-        public string WorkPath { get; private set; } = workPath;
-
-        public string OutputFileName {  get; set; } = outputFileName;
-
-        public string? Author { get; set; }
-        public bool AdAuthor { get; set; } = false;
-    }
+    public string? Author { get; set; }
 }

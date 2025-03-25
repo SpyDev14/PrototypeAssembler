@@ -1,7 +1,6 @@
-﻿namespace Content.Core.Assembly
+﻿namespace Content.Core.Assembly;
+
+internal interface IAssembler
 {
-    internal interface IAssembler
-    {
-        public AssembledFile AssembleFiles();
-    }
+    public AssembledFile AssembleFiles();
 }
