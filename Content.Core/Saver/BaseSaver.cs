@@ -12,7 +12,7 @@ internal class BaseSaver(SaveData data) : IFileSaver
         if (outputFileName.EndsWith(protoExtension))
             outputFileName = outputFileName.Substring(0, outputFileName.Length - protoExtension.Length);
 
-        string fullPath = _data.OutputPath + $"\\{outputFileName}.yml";
+        string fullPath = $"{_data.OutputPath}\\{outputFileName}{protoExtension}";
 
         int index = 1;
         while (File.Exists(fullPath))
@@ -25,7 +25,7 @@ internal class BaseSaver(SaveData data) : IFileSaver
                     break;
 
                 case OnFileAlreadyExist.CreateWithIndex:
-                    fullPath = _data.OutputPath + $"\\{outputFileName} ({index}){protoExtension}";
+                    fullPath = $"{_data.OutputPath}\\{outputFileName} ({index}){protoExtension}";
                     index++;
                     break;
 
