@@ -6,7 +6,13 @@ internal class BaseSaver(SaveData data) : IFileSaver
 
     public void Save(BaseFile file)
     {
-        string fullPath = _data.OutputPath + $"\\{_data.AssembledFileName}.yml";
+        string outputFileName = _data.AssembledFileName;
+        const string protoExtension = ".yml";
+
+        if (outputFileName.EndsWith(protoExtension))
+            outputFileName = outputFileName.Substring(0, outputFileName.Length - protoExtension.Length);
+
+        string fullPath = _data.OutputPath + $"\\{outputFileName}.yml";
 
         int index = 1;
         while (File.Exists(fullPath))
@@ -15,15 +21,16 @@ internal class BaseSaver(SaveData data) : IFileSaver
             {
                 case OnFileAlreadyExist.Overwrite:
                     File.Delete(fullPath);
+                    Console.WriteLine("\nFile overwrited (i)");
                     break;
 
                 case OnFileAlreadyExist.CreateWithIndex:
-                    fullPath = _data.OutputPath + $"\\{_data.AssembledFileName} ({index}).yml";
+                    fullPath = _data.OutputPath + $"\\{outputFileName} ({index}){protoExtension}";
                     index++;
                     break;
 
                 case OnFileAlreadyExist.ThrowException:
-                    throw new FileAlreadyExistsException($"File {_data.AssembledFileName}.yml in {_data.OutputPath} already exist");
+                    throw new FileAlreadyExistsException($"File {outputFileName}{protoExtension} in {_data.OutputPath} already exist");
             }
         }
 

@@ -11,7 +11,7 @@ internal class BaseFileCollector : IFileCollector
         Console.WriteLine("Files for assembling:");
         foreach (var filePath in Directory.EnumerateFiles(workDirrectoryPath, "*.yml", SearchOption.AllDirectories))
         {
-            Console.WriteLine($" » {filePath}");
+            Console.WriteLine($" -> {filePath}");
             files.Add(new FileInfo(filePath));
         }
 

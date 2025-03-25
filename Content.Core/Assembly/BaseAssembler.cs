@@ -28,10 +28,19 @@ internal class BaseAssembler : IAssembler
             preparedFiles.Add(_filePreparator.PrepareFile(fileForAssembling));
         }
 
+        stringBuilder.AppendLine($@"
+# Prototype assembled with Prototype Assembler by SpyDev14
+# github: https://github.com/SpyDev14/PrototypeAssembler
+# Thank's for using!
+");
+
         // combining files
         foreach (PreparedFile preparedFile in preparedFiles)
-            stringBuilder.AppendLine(preparedFile.ToString());
+        {
+            stringBuilder.AppendLine(preparedFile.ToString().Trim());
+            stringBuilder.Append("\n");
+        }
 
-        return new AssembledFile(stringBuilder.ToString());
+        return new AssembledFile(stringBuilder.ToString().Trim());
     }
 }

@@ -37,7 +37,29 @@ public class Program
                 }
             }
         }
-        else throw new ArgumentNullException("at least 2 arguments are needed");
+        else
+        {   
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(@"At least 3 arguments are needed!
+    arg[0] - workFolderPath
+    arg[1] - assembledFileSavePath
+    arg[2] - assembledFileName
+    arg[3] - (optional) author = null
+    arg[4] - (optional) OnFileExistOperation: int or string = 1 (CreateWithIndex)
+        ├─ 0 - Overwrite
+        ├─ 1 - CreateWithIndex
+        └─ 2 - ThrowException");
+            
+            Console.ResetColor();
+
+            throw new ArgumentException("At least 3 arguments are needed");
+        }
+
+        Console.WriteLine($"Work folder path:               {workFolderPath}");
+        Console.WriteLine($"Assembled file path:            {assembledFileSavePath}");
+        Console.WriteLine($"Assembled file name:            {assembledFileName}");
+        Console.WriteLine($"Author:                         {author}");
+        Console.WriteLine($"On file already exst operation: {onFileAlreadyExist}\n");
 
         AssemblyData assemblyData = new(workFolderPath)
         {

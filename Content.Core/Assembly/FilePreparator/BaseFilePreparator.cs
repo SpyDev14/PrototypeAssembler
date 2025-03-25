@@ -8,10 +8,10 @@ internal class BaseFilePreparator(AssemblyData data) : IFilePreparator
     public PreparedFile PrepareFile(BaseFile file)
     {
         const int dividorLength = 80;
-        const char dividorChar = '=';
+        const char dividorChar = '-';
         const string prefix = "  ├─ ";
 
-        Func<string, string> commentText = (text) => $"\n#{text}";
+        Func<string, string> commentText = (text) => $"\n# {text}";
         Func<string, string> getDividor = (label) => new string(dividorChar, dividorLength - (label.Length+3));
         
         bool severalInfo =
@@ -24,7 +24,7 @@ internal class BaseFilePreparator(AssemblyData data) : IFilePreparator
                 $"{(file.Path    != null ? commentText($"{prefix}Path:   {file.Path.Substring(0, _data.WorkFolderPath.Length)}") : null)}" +
                 $"{(file.Name    != null ? commentText($"{prefix}Name:   {file.Name}")    : null)}" +
                 $"{(_data.Author != null ? commentText($"{prefix}Author: {_data.Author}") : null)}" +
-            $"{(severalInfo ? commentText($"[{label.ToUpper()}] {getDividor(label)}") : null)}";
+            $"{(severalInfo ? commentText($"[{label.ToUpper()}] {getDividor(label)}") : null)}\n";
 
         return new PreparedFile(file)
         {
