@@ -21,7 +21,7 @@ internal class BaseFilePreparator(AssemblyData data) : IFilePreparator
 
         Func<string, string> part = (label) =>
             commentText($"[{label.ToUpper()}] {getDividor(label)}") +
-                $"{(file.Path    != null ? commentText($"{prefix}Path:   {file.Path.Substring(0, _data.WorkFolderPath.Length)}") : null)}" +
+                $"{(file.Path    != null ? commentText($"{prefix}Path:   .{file.Path.Substring(_data.WorkFolderPath.Length)}") : null)}" +
                 $"{(file.Name    != null ? commentText($"{prefix}Name:   {file.Name}")    : null)}" +
                 $"{(_data.Author != null ? commentText($"{prefix}Author: {_data.Author}") : null)}" +
             $"{(severalInfo ? commentText($"[{label.ToUpper()}] {getDividor(label)}") : null)}\n";

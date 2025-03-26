@@ -24,9 +24,9 @@ internal class BaseFileCollector : IFileCollector
             }
 
             baseFiles.Add (
-                new (
+                new BaseFile(
                     fileContent,
-                    $"{file.FullName}\\{file.Name}",
+                    file.FullName.Substring(0, file.FullName.Length - file.Name.Length),
                     file.Name
                 ) {
                     FileInfo = file
