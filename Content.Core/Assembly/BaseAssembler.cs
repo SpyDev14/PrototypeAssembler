@@ -31,7 +31,7 @@ internal class BaseAssembler : IAssembler
         stringBuilder.AppendLine($@"
 # Prototype assembled with Prototype Assembler by SpyDev14
 # github: https://github.com/SpyDev14/PrototypeAssembler
-# Thank's for using!
+# Thanks for using!
 ");
 
         // combining files

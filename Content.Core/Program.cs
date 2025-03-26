@@ -7,14 +7,25 @@ namespace Content.Core;
 
 public class Program
 {
+    private const string wrongArgumentsErrorMessage
+=@"At least 3 arguments are needed!
+    arg[0] - workFolderPath*
+    arg[1] - assembledFileSavePath*
+    arg[2] - assembledFileName*
+    arg[3] - (optional) OnFileExistOperation: int or string = 1 (CreateWithIndex)
+        ├─ 0 - Overwrite
+        ├─ 1 - CreateWithIndex
+        └─ 2 - ThrowException
+    arg[4] - (optional) author = null";
+
     static void Main(string[] args)
     {
         /*
             arg[0] - workFolderPath
             arg[1] - assembledFileSavePath
             arg[2] - assembledFileName
-            arg[3] - author (optional)
-            arg[4] - OnFileExistOperation: int (optional)
+            arg[3] - OnFileExistOperation: int or string (optional)
+            arg[4] - author (optional)
         */
 
         string workFolderPath, assembledFileSavePath, assembledFileName;
@@ -29,37 +40,33 @@ public class Program
 
             if (args.Length >= 4)
             {
-                author = args[3];
+                try {
+                    onFileAlreadyExist = Enum.Parse<OnFileAlreadyExist>(args[3]); }
+
+                catch {
+                    WriteError("Unknow on file already exsist operation!");
+                    throw new ArgumentException("this OnFileExistOperation not exsist");
+                }
 
                 if (args.Length >= 5)
                 {
-                    Enum.TryParse(args[4], out onFileAlreadyExist);
+                    author = args[4];
                 }
             }
         }
         else
         {   
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(@"At least 3 arguments are needed!
-    arg[0] - workFolderPath
-    arg[1] - assembledFileSavePath
-    arg[2] - assembledFileName
-    arg[3] - (optional) author = null
-    arg[4] - (optional) OnFileExistOperation: int or string = 1 (CreateWithIndex)
-        ├─ 0 - Overwrite
-        ├─ 1 - CreateWithIndex
-        └─ 2 - ThrowException");
-            
-            Console.ResetColor();
+            WriteError(wrongArgumentsErrorMessage);
 
             throw new ArgumentException("At least 3 arguments are needed");
         }
 
-        Console.WriteLine($"Work folder path:               {workFolderPath}");
-        Console.WriteLine($"Assembled file path:            {assembledFileSavePath}");
-        Console.WriteLine($"Assembled file name:            {assembledFileName}");
-        Console.WriteLine($"Author:                         {author}");
-        Console.WriteLine($"On file already exst operation: {onFileAlreadyExist}\n");
+        Console.WriteLine($"Work folder path:     {workFolderPath}");
+        Console.WriteLine($"Assembled file path:  {assembledFileSavePath}");
+        Console.WriteLine($"Assembled file name:  {assembledFileName}");
+        Console.WriteLine($"On file already exst: {onFileAlreadyExist}");
+        Console.WriteLine($"Author:               {author}");
+        Console.WriteLine();
 
         AssemblyData assemblyData = new(workFolderPath)
         {
@@ -80,5 +87,16 @@ public class Program
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("\nУспешно!");
         Console.ResetColor();
+    }
+
+    private static void WriteError(string msg, bool addErrorPrefix = true, string endsWith = "\n")
+    {
+        const string errorPrefix = "ERROR:";
+        ConsoleColor beforeColor = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Red;
+
+        Console.Write($"{(addErrorPrefix? errorPrefix : null)} {msg}{endsWith}");
+
+        Console.ForegroundColor = beforeColor;
     }
 }
