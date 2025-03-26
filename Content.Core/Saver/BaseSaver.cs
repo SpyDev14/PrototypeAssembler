@@ -12,7 +12,7 @@ internal class BaseSaver(SaveData data) : IFileSaver
         if (outputFileName.EndsWith(protoExtension))
             outputFileName = outputFileName.Substring(0, outputFileName.Length - protoExtension.Length);
 
-        string fullPath = $"{_data.OutputPath}\\{outputFileName}{protoExtension}";
+        string fullPath = $"{_data.AssembledFileSavePath}\\{outputFileName}{protoExtension}";
 
         int index = 1;
         while (File.Exists(fullPath))
@@ -25,12 +25,12 @@ internal class BaseSaver(SaveData data) : IFileSaver
                     break;
 
                 case OnFileAlreadyExist.CreateWithIndex:
-                    fullPath = $"{_data.OutputPath}\\{outputFileName} ({index}){protoExtension}";
+                    fullPath = $"{_data.AssembledFileSavePath}\\{outputFileName} ({index}){protoExtension}";
                     index++;
                     break;
 
                 case OnFileAlreadyExist.ThrowException:
-                    throw new FileAlreadyExistsException($"File {outputFileName}{protoExtension} in {_data.OutputPath} already exist");
+                    throw new FileAlreadyExistsException($"File {outputFileName}{protoExtension} in {_data.AssembledFileSavePath} already exist");
             }
         }
 

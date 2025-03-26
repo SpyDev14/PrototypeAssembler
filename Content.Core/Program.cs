@@ -18,7 +18,7 @@ public class Program
         └─ 2 - ThrowException
     arg[4] - (optional) author = null";
 
-    static void Main(string[] args)
+    private static void Main(string[] args)
     {
         /*
             arg[0] - workFolderPath
@@ -61,13 +61,6 @@ public class Program
             throw new ArgumentException("At least 3 arguments are needed");
         }
 
-        Console.WriteLine($"Work folder path:     {workFolderPath}");
-        Console.WriteLine($"Assembled file path:  {assembledFileSavePath}");
-        Console.WriteLine($"Assembled file name:  {assembledFileName}");
-        Console.WriteLine($"On file already exst: {onFileAlreadyExist}");
-        Console.WriteLine($"Author:               {author}");
-        Console.WriteLine();
-
         AssemblyData assemblyData = new(workFolderPath)
         {
             Author = author
@@ -76,6 +69,18 @@ public class Program
         {
             OnFileAlreadyExistOperation = onFileAlreadyExist
         };
+
+        Execute(assemblyData, saveData);
+    }
+
+    public static void Execute(AssemblyData assemblyData, SaveData saveData)
+    {
+        Console.WriteLine($"Work folder path:     {assemblyData.WorkFolderPath}");
+        Console.WriteLine($"Assembled file path:  {saveData.AssembledFileSavePath}");
+        Console.WriteLine($"Assembled file name:  {saveData.AssembledFileName}");
+        Console.WriteLine($"On file already exst: {saveData.OnFileAlreadyExistOperation}");
+        Console.WriteLine($"Author:               {assemblyData.Author}");
+        Console.WriteLine();
 
         IAssembler assembler = new BaseAssembler(assemblyData, new BaseFilePreparator(assemblyData), new BaseFileCollector());
 
@@ -87,6 +92,22 @@ public class Program
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("\nУспешно!");
         Console.ResetColor();
+    }
+
+    public static bool TryExecute(AssemblyData assemblyData, SaveData saveData, out Exception? exception)
+    {
+        try
+        {
+            Execute(assemblyData, saveData);
+        }
+        catch (Exception ex)
+        {
+            exception = ex;
+            return false;
+        }
+
+        exception = null;
+        return true;
     }
 
     private static void WriteError(string msg, bool addErrorPrefix = true, string endsWith = "\n")

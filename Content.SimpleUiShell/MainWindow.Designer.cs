@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             Panel _main_container;
+            messageLabel = new Label();
             compileBtn = new Button();
             authorInputBox = new TextBox();
             outputFileNameInputBox = new TextBox();
@@ -45,6 +46,7 @@
             // 
             // _main_container
             // 
+            _main_container.Controls.Add(messageLabel);
             _main_container.Controls.Add(compileBtn);
             _main_container.Controls.Add(authorInputBox);
             _main_container.Controls.Add(outputFileNameInputBox);
@@ -58,18 +60,34 @@
             _main_container.Margin = new Padding(10);
             _main_container.Name = "_main_container";
             _main_container.Padding = new Padding(10);
-            _main_container.Size = new Size(284, 217);
+            _main_container.Size = new Size(284, 241);
             _main_container.TabIndex = 0;
+            // 
+            // messageLabel
+            // 
+            messageLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            messageLabel.AutoEllipsis = true;
+            messageLabel.BackColor = SystemColors.Control;
+            messageLabel.Font = new Font("Consolas", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            messageLabel.ForeColor = SystemColors.ControlDarkDark;
+            messageLabel.Location = new Point(10, 165);
+            messageLabel.Name = "messageLabel";
+            messageLabel.Padding = new Padding(0, 2, 0, 3);
+            messageLabel.Size = new Size(264, 34);
+            messageLabel.TabIndex = 8;
+            messageLabel.Text = "message";
+            messageLabel.TextAlign = ContentAlignment.BottomCenter;
             // 
             // compileBtn
             // 
             compileBtn.Dock = DockStyle.Bottom;
-            compileBtn.Location = new Point(10, 175);
+            compileBtn.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            compileBtn.Location = new Point(10, 199);
             compileBtn.Margin = new Padding(0);
             compileBtn.Name = "compileBtn";
             compileBtn.Size = new Size(264, 32);
             compileBtn.TabIndex = 7;
-            compileBtn.Text = "Assemle";
+            compileBtn.Text = "Assemble";
             compileBtn.UseVisualStyleBackColor = true;
             compileBtn.Click += compileBtn_Click;
             // 
@@ -110,6 +128,7 @@
             // outputFilePathInputBox
             // 
             outputFilePathInputBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            outputFilePathInputBox.ForeColor = SystemColors.WindowText;
             outputFilePathInputBox.Location = new Point(10, 43);
             outputFilePathInputBox.Margin = new Padding(0);
             outputFilePathInputBox.Name = "outputFilePathInputBox";
@@ -158,12 +177,12 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(284, 217);
+            ClientSize = new Size(284, 241);
             Controls.Add(_main_container);
             MaximizeBox = false;
-            MaximumSize = new Size(600, 256);
+            MaximumSize = new Size(600, 356);
             MinimizeBox = false;
-            MinimumSize = new Size(256, 256);
+            MinimumSize = new Size(256, 265);
             Name = "MainWindow";
             Text = "Prototype Assembler";
             _main_container.ResumeLayout(false);
@@ -183,5 +202,6 @@
         private TextBox authorInputBox;
         private FolderBrowserDialog workFolderBrowseDialog;
         private FolderBrowserDialog outputFileFolderBrowseDialog;
+        private Label messageLabel;
     }
 }

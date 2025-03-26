@@ -1,5 +1,5 @@
 ﻿namespace Content.Core.Assembly;
-internal class AssemblyData(string workFolderPath)
+public class AssemblyData(string workFolderPath)
 {
     public string WorkFolderPath { get; private set; } = workFolderPath;
 

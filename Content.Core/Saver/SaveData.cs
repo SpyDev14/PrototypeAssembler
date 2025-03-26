@@ -1,8 +1,8 @@
 ﻿namespace Content.Core.Saver;
 
-internal class SaveData(string outPath, string assembledFileName)
+public class SaveData(string outPath, string assembledFileName)
 {
-    public string OutputPath { get; set; } = outPath;
+    public string AssembledFileSavePath { get; set; } = outPath;
 
     public string AssembledFileName {  get; set; } = assembledFileName;
 
