@@ -34,7 +34,7 @@ TODO: когда оформлю проект как следует, распиш
 
 <details>
   
-![image](https://github.com/user-attachments/assets/1ce48e66-9981-4313-9b65-e4da289de364)
+![image](https://github.com/user-attachments/assets/b85b2214-7be7-49e7-9f57-802b42ae869e)
 </details>
 
 ### Content.SimpleUIShell [В РАЗРАБОТКЕ]
