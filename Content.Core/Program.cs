@@ -75,14 +75,24 @@ public class Program
 
     public static void Execute(AssemblyData assemblyData, SaveData saveData)
     {
-        Console.WriteLine($"Work folder path:     {assemblyData.WorkFolderPath}");
-        Console.WriteLine($"Assembled file path:  {saveData.AssembledFileSavePath}");
-        Console.WriteLine($"Assembled file name:  {saveData.AssembledFileName}");
-        Console.WriteLine($"On file already exst: {saveData.OnFileAlreadyExistOperation}");
-        Console.WriteLine($"Author:               {assemblyData.Author}");
+        Console.WriteLine("Welcome to PrototypeAssembler!");
+        Console.WriteLine();
+        Console.WriteLine($"Work folder path:      {assemblyData.WorkFolderPath}");
+        Console.WriteLine($"Assembled file path:   {saveData.AssembledFileSavePath}");
+        Console.WriteLine($"Assembled file name:   {saveData.AssembledFileName}");
+        Console.WriteLine($"On file already exsit: {saveData.OnFileAlreadyExistOperation}");
+        Console.WriteLine($"Author:                {assemblyData.Author}");
         Console.WriteLine();
 
-        IAssembler assembler = new BaseAssembler(assemblyData, new BaseFilePreparator(assemblyData), new BaseFileCollector());
+        if (assemblyData.WorkFolderPath == saveData.AssembledFileSavePath)
+            throw new ArgumentException($"Work folder path can not be equal save folder path");
+        
+
+        IAssembler assembler = new BaseAssembler(
+            assemblyData,
+            new BaseFilePreparator(assemblyData),
+            new BaseFileCollector()
+        );
 
         AssembledFile assembledFile = assembler.AssembleFiles();
 
@@ -90,7 +100,7 @@ public class Program
         saver.Save(assembledFile);
 
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("\nУспешно!");
+        Console.WriteLine("\nSucces!");
         Console.ResetColor();
     }
 
